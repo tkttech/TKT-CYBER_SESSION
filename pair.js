@@ -1,151 +1,150 @@
-const { makeid } = require('./gen-id');
 const express = require('express');
-const fs = require('fs');
+const fs = require('fs-extra');
+const { exec } = require("child_process");
 let router = express.Router();
 const pino = require("pino");
-const { default: makeWASocket, useMultiFileAuthState, delay, Browsers, makeCacheableSignalKeyStore, getAggregateVotesInPollMessage, DisconnectReason, WA_DEFAULT_EPHEMERAL, jidNormalizedUser, proto, getDevice, generateWAMessageFromContent, fetchLatestBaileysVersion, makeInMemoryStore, getContentType, generateForwardMessageContent, downloadContentFromMessage, jidDecode } = require('@whiskeysockets/baileys')
+const { Boom } = require("@hapi/boom");
+const MESSAGE = process.env.MESSAGE || `
+> *𖣔⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂𖣔*
+
+*𝙾𝚁𝙼𝙰𝙽-𝚇𝙼𝙳 ᵇᵒᵗ 𝐒𝐄𝐒𝐒𝐈𝐎𝐍 𝐂𝐎𝐍𝐍𝐄𝐂𝐓𝐄𝐃 𝐒𝐔𝐂𝐂𝐄𝐒𝐒𝐅𝐔𝐋* ✅
+
+> *𖣔⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂𖣔*
+
+*Gɪᴠᴇ ᴀ ꜱᴛᴀʀ ᴛᴏ ʀᴇᴘᴏ ꜰᴏʀ ᴄᴏᴜʀᴀɢᴇ* 🌟
+
+https://github.com/Orman87/ORMAN_XMD
+
+> *𖣔⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂𖣔*
+
+*Awesome channel please follow for more updates 💭*
+
+https://whatsapp.com/channel/0029VasAQRiGk1FtXGUz5T2V
+
+*𝙾𝚁𝙼𝙰𝙽-𝚇𝙼𝙳 ᵇᵒᵗ 𝑊ℎ𝑎𝑡𝑠𝐴𝑝𝑝 𝑏𝑜𝑡* 🥀
+
+> *𖣔⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂⁂𖣔*
+
+> 𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝙱𝙻𝙰𝙲𝙺 𝚃𝙴𝙲𝙷™
+`;
 
 const { upload } = require('./mega');
-function removeFile(FilePath) {
-    if (!fs.existsSync(FilePath)) return false;
-    fs.rmSync(FilePath, { recursive: true, force: true });
+const {
+    default: makeWASocket,
+    useMultiFileAuthState,
+    delay,
+    makeCacheableSignalKeyStore,
+    Browsers,
+    DisconnectReason
+} = require("@whiskeysockets/baileys");
+
+// Ensure the directory is empty when the app starts
+if (fs.existsSync('./auth_info_baileys')) {
+    fs.emptyDirSync(__dirname + '/auth_info_baileys');
 }
+
 router.get('/', async (req, res) => {
-    const id = makeid();
     let num = req.query.number;
-    async function ORMAN_XMD_PAIR_CODE() {
-        const {
-            state,
-            saveCreds
-        } = await useMultiFileAuthState('./temp/' + id);
+
+    async function SUHAIL() {
+        const { state, saveCreds } = await useMultiFileAuthState(`./auth_info_baileys`);
         try {
-var items = ["Safari"];
-function selectRandomItem(array) {
-  var randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
-}
-var randomItem = selectRandomItem(items);
-            
-            let sock = makeWASocket({
+            let Smd = makeWASocket({
                 auth: {
                     creds: state.creds,
                     keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
                 },
                 printQRInTerminal: false,
-                generateHighQualityLinkPreview: true,
                 logger: pino({ level: "fatal" }).child({ level: "fatal" }),
-                syncFullHistory: false,
-                browser: Browsers.macOS(randomItem)
+                browser: Browsers.macOS("Safari"),
             });
-            if (!sock.authState.creds.registered) {
+
+            if (!Smd.authState.creds.registered) {
                 await delay(1500);
                 num = num.replace(/[^0-9]/g, '');
-                const code = await sock.requestPairingCode(num);
+                const code = await Smd.requestPairingCode(num);
                 if (!res.headersSent) {
                     await res.send({ code });
                 }
             }
-            sock.ev.on('creds.update', saveCreds);
-            sock.ev.on("connection.update", async (s) => {
 
-    const {
-                    connection,
-                    lastDisconnect
-                } = s;
-                
-                if (connection == "open") {
-                    await delay(5000);
-                    let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
-                    let rf = __dirname + `/temp/${id}/creds.json`;
-                    function generateRandomText() {
-                        const prefix = "3EB";
-                        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                        let randomText = prefix;
-                        for (let i = prefix.length; i < 22; i++) {
-                            const randomIndex = Math.floor(Math.random() * characters.length);
-                            randomText += characters.charAt(randomIndex);
-                        }
-                        return randomText;
-                    }
-                    const randomText = generateRandomText();
+            Smd.ev.on('creds.update', saveCreds);
+            Smd.ev.on("connection.update", async (s) => {
+                const { connection, lastDisconnect } = s;
+
+                if (connection === "open") {
                     try {
+                        await delay(10000);
+                        if (fs.existsSync('./auth_info_baileys/creds.json'));
 
+                        const auth_path = './auth_info_baileys/';
+                        let user = Smd.user.id;
 
-                        
-                        const { upload } = require('./mega');
-                        const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
-                        const string_session = mega_url.replace('https://mega.nz/file/', '');
-                        let md = "ORMAN~XMD~" + string_session;
-                        let code = await sock.sendMessage(sock.user.id, { text: md });
-                        let desc = `*Hello there ORMAN-XMD User! 👋🏻* 
+                        // Define randomMegaId function to generate random IDs
+                        function randomMegaId(length = 6, numberLength = 4) {
+                            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                            let result = '';
+                            for (let i = 0; i < length; i++) {
+                                result += characters.charAt(Math.floor(Math.random() * characters.length));
+                            }
+                            const number = Math.floor(Math.random() * Math.pow(10, numberLength));
+                            return `${result}${number}`;
+                        }
 
-> Do not share your session id with your gf 😂.
+                        // Upload credentials to Mega
+                        const mega_url = await upload(fs.createReadStream(auth_path + 'creds.json'), `${randomMegaId()}.json`);
+                        const Id_session = mega_url.replace('https://mega.nz/file/', '');
 
- *𝐓𝐇𝐀𝐍𝐊𝐒 𝐅𝐎𝐑 𝐔𝐒𝐈𝐍𝐆 𝐎𝐑𝐌𝐀𝐍-𝐗𝐌𝐃* 
+                        const Scan_Id = Id_session;
 
-> Join WhatsApp Channel :- ⤵️
- 
-https://whatsapp.com/channel/0029VasAQRiGk1FtXGUz5T2V
+                        let msgsss = await Smd.sendMessage(user, { text: '𝙾𝚁𝙼𝙰𝙽~𝚇𝙼𝙳~' + Scan_Id });
+                        await Smd.sendMessage(user, { text: MESSAGE }, { quoted: msgsss });
+                        await delay(1000);
+                        try { await fs.emptyDirSync(__dirname + '/auth_info_baileys'); } catch (e) {}
 
-> Dont forget to fork the repo ⬇️
-
-https://github.com/Orman87/ORMAN_XMD
-
-> *© 𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝙱𝙻𝙰𝙲𝙺 𝚃𝙴𝙲𝙷 ™*`; 
-                        await sock.sendMessage(sock.user.id, {
-text: desc,
-contextInfo: {
-externalAdReply: {
-title: "ORMAN-TECH",
-thumbnailUrl: "https://files.catbox.moe/wsi5bk.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029VasAQRiGk1FtXGUz5T2V",
-mediaType: 1,
-renderLargerThumbnail: true
-}  
-}
-},
-{quoted:code })
                     } catch (e) {
-                            let ddd = sock.sendMessage(sock.user.id, { text: e });
-                            let desc = `*Don't Share with anyone this code use it to deploy ORMAN-XMD*\n\n ◦ *Github:* https://github.com/your github name/your bot name`;
-                            await sock.sendMessage(sock.user.id, {
-text: desc,
-contextInfo: {
-externalAdReply: {
-title: "ORMAN-TECH",
-thumbnailUrl: "https://files.catbox.moe/wsi5bk.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029VasAQRiGk1FtXGUz5T2V",
-mediaType: 2,
-renderLargerThumbnail: true,
-showAdAttribution: true
-}  
-}
-},
-{quoted:ddd })
+                        console.log("Error during file upload or message send: ", e);
                     }
-                    await delay(10);
-                    await sock.ws.close();
-                    await removeFile('./temp/' + id);
-                    console.log(`👤 ${sock.user.id} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 ✅ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...`);
-                    await delay(10);
-                    process.exit();
-                } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
-                    await delay(10);
-                    ORMAN_XMD_PAIR_CODE();
+
+                    await delay(100);
+                    await fs.emptyDirSync(__dirname + '/auth_info_baileys');
+                }
+
+                // Handle connection closures
+                if (connection === "close") {
+                    let reason = new Boom(lastDisconnect?.error)?.output.statusCode;
+                    if (reason === DisconnectReason.connectionClosed) {
+                        console.log("Connection closed!");
+                    } else if (reason === DisconnectReason.connectionLost) {
+                        console.log("Connection Lost from Server!");
+                    } else if (reason === DisconnectReason.restartRequired) {
+                        console.log("Restart Required, Restarting...");
+                        SUHAIL().catch(err => console.log(err));
+                    } else if (reason === DisconnectReason.timedOut) {
+                        console.log("Connection TimedOut!");
+                    } else {
+                        console.log('Connection closed with bot. Please run again.');
+                        console.log(reason);
+                        await delay(5000);
+                        exec('pm2 restart qasim');
+                    }
                 }
             });
+
         } catch (err) {
-            console.log("service restated");
-            await removeFile('./temp/' + id);
+            console.log("Error in SUHAIL function: ", err);
+            exec('pm2 restart qasim');
+            console.log("Service restarted due to error");
+            SUHAIL();
+            await fs.emptyDirSync(__dirname + '/auth_info_baileys');
             if (!res.headersSent) {
-                await res.send({ code: "❗ Service Unavailable" });
+                await res.send({ code: "Try After Few Minutes" });
             }
         }
     }
-   return await ORMAN_XMD_PAIR_CODE();
-});/*
-setInterval(() => {
-    console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
-    process.exit();
-}, 180000); //30min*/
+
+    await SUHAIL();
+});
+
 module.exports = router;
+                    
