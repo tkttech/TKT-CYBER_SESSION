@@ -1,354 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ORMAN XMD PAIR</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background: linear-gradient(to bottom, #ffffff, #ebebeb);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeIn 0.8s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .box {
-      width: 320px;
-      height: 350px;
-      padding: 25px;
-      position: relative;
-      text-align: center;
-      background-color: #fff;
-      border-radius: 15px;
-      transform: perspective(1000px) rotateY(0deg);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      transition: all 0.3s ease;
-    }
-
-    .box:hover {
-      transform: perspective(1000px) rotateY(5deg);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    }
-
-    #text {
-      color: #333;
-    }
-
-    .input-container input {
-      color: #333;
-    }
-
-    .centered-text {
-      color: #333;
-    }
-
-    .brand-title {
-      color: #2a5ea8;
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 5px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .brand-subtitle {
-      color: #4998FF;
-      font-size: 12px;
-      margin-top: 0;
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
-    }
-
-    .input-container {
-      display: flex;
-      background: white;
-      border-radius: 1rem;
-      background: linear-gradient(45deg, #c5c5c5 0%, #ffffff 100%);
-      box-shadow: 10px 10px 20px #d8d8d8, -5px -5px 15px #f8f8f8;
-      padding: 0.3rem;
-      gap: 0.3rem;
-      max-width: 300px;
-      width: 100%;
-      margin: 20px auto;
-      transition: all 0.3s ease;
-    }
-
-    .input-container:hover {
-      box-shadow: 15px 15px 25px #d0d0d0, -10px -10px 20px #f8f8f8;
-    }
-
-    .input-container input {
-      border-radius: 0.8rem 0 0 0.8rem;
-      background: #e8e8e8;
-      box-shadow: inset 8px 8px 8px #dcdcdc, inset -8px -8px 8px #f4f4f4;
-      width: 100%;
-      flex-basis: 75%;
-      padding: 1rem;
-      border: none;
-      border-left: 2px solid #4998FF;
-      color: #333;
-      transition: all 0.3s ease;
-      font-size: 14px;
-    }
-
-    .input-container input:focus {
-      border-left: 3px solid #2a5ea8;
-      outline: none;
-      box-shadow: inset 8px 8px 8px #BFF0FA, inset -8px -8px 8px #f4f4f4;
-    }
-
-    .input-container button {
-      flex-basis: 25%;
-      padding: 1rem;
-      background: linear-gradient(135deg, #BFF0FA 0%, #2a5ea8 100%);
-      font-weight: 700;
-      letter-spacing: 0.2rem;
-      text-transform: uppercase;
-      color: white;
-      border: none;
-      width: 100%;
-      border-radius: 0 1rem 1rem 0;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    .input-container button:hover {
-      background: linear-gradient(135deg, #BFF0FA 0%, #4998FF 100%);
-      transform: translateY(-2px);
-    }
-
-    .input-container button:active {
-      transform: translateY(0);
-    }
-
-    .waiting-message {
-      color: #2a5ea8;
-      font-weight: 600;
-      font-size: 14px;
-      margin-top: 15px;
-      display: none;
-    }
-
-    .code-display {
-      margin-top: 20px;
-      padding: 15px;
-      background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
-      border-radius: 10px;
-      box-shadow: inset 2px 2px 5px #d0d0d0, inset -2px -2px 5px #f8f8f8;
-      transition: all 0.3s ease;
-    }
-
-    .code-display:hover {
-      box-shadow: inset 3px 3px 7px #c0c0c0, inset -3px -3px 7px #f8f8f8;
-    }
-
-    .copy-btn {
-      color: #2a5ea8;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: inline-block;
-    }
-
-    .copy-btn:hover {
-      color: #4998FF;
-      transform: scale(1.05);
-    }
-
-    .copy-btn:active {
-      transform: scale(0.98);
-    }
-
-    .instructions {
-      font-size: 12px;
-      color: #666;
-      margin-top: 25px;
-      line-height: 1.4;
-    }
-
-    @media (max-width: 500px) {
-      .box {
-        width: 90%;
-        height: auto;
-        padding: 20px 15px;
-      }
-
-      .input-container {
-        flex-direction: column;
-        max-width: 90%;
-      }
-
-      .input-container input {
-        border-radius: 0.8rem;
-        width: 100%;
-      }
-
-      .input-container button {
-        padding: 0.8rem;
-        border-radius: 0.8rem;
-        width: 100%;
-        margin-top: 5px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pair Device | ORMAN XMD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4e9f3d;
+            --secondary: #34d7b7;
+            --text: #2d3748;
+            --light: #f7fafc;
+            --error: #e53e3e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            color: #718096;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(78, 159, 61, 0.2);
+        }
+        
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #3e8e2d;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #edf2f7;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .result.success {
+            display: block;
+            background: #f0fff4;
+            color: var(--primary);
+        }
+        
+        .result.error {
+            display: block;
+            background: #fff5f5;
+            color: var(--error);
+        }
+        
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        
+        .spinner {
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 480px) {
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <div class="main">
-      <div class="box" id="box">
-        <div id="text">
-          <i class="fas fa-link" style="color: #2a5ea8; font-size: 28px; margin-bottom: 10px;"></i>
-          <h2 class="brand-title">ORMAN XMD PAIR</h2>
-          <p class="brand-subtitle">Secure Device Pairing</p>
-          
-          <p>Enter your number with country code</p>
-          <div class="input-container">
-            <input placeholder="256444844060" type="number" id="number" placeholder="e.g. 256001234567" name="">
-            <button id="submit">Pair</button>
-          </div>
-          
-          <div id="waiting-message" class="waiting-message">
-            <i class="fas fa-spinner fa-spin"></i> Generating pairing code...
-          </div>
-          
-          <div id="pair" class="code-display" style="display: none;">
-            <span id="copy" class="copy-btn">CODE: <span id="code-value"></span></span>
-          </div>
-          
-          <div class="instructions">
-            Enter your WhatsApp number to receive a secure pairing code for ORMAN XMD.
-          </div>
+    <div class="card">
+        <div class="logo">
+            <i class="fas fa-link"></i>
         </div>
-      </div>
+        <h1>Pair Your Device</h1>
+        <p>Enter your WhatsApp number with country code to receive a pairing code</p>
+        
+        <div class="form-group">
+            <label for="number">WhatsApp Number</label>
+            <input type="tel" id="number" placeholder="e.g. 256001234567" inputmode="numeric">
+        </div>
+        
+        <button id="submit">
+            <span id="btn-text">Generate Code</span>
+            <i class="fas fa-spinner spinner" id="spinner"></i>
+        </button>
+        
+        <div class="result" id="result">
+            <div id="result-text"></div>
+            <div class="copy-btn" id="copy-btn">
+                <i class="far fa-copy"></i>
+                <span>Copy Code</span>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
-  <script>
-    const pairElement = document.getElementById("pair");
-    const submitBtn = document.getElementById("submit");
-    const numberInput = document.getElementById("number");
-    const waitingMessage = document.getElementById("waiting-message");
-    const codeValue = document.getElementById("code-value");
-    const box = document.getElementById("box");
-
-    async function copyCode() {
-      const code = codeValue.innerText;
-      try {
-        await navigator.clipboard.writeText(code);
-        const copyBtn = document.getElementById("copy");
-        copyBtn.innerHTML = 'COPIED! <i class="fas fa-check"></i>';
-        copyBtn.style.color = "#2a5ea8";
+    
+    <script>
+        const submitBtn = document.getElementById('submit');
+        const numberInput = document.getElementById('number');
+        const resultDiv = document.getElementById('result');
+        const resultText = document.getElementById('result-text');
+        const copyBtn = document.getElementById('copy-btn');
+        const btnText = document.getElementById('btn-text');
+        const spinner = document.getElementById('spinner');
         
-        setTimeout(() => {
-          copyBtn.innerHTML = 'CODE: <span id="code-value">' + code + '</span>';
-          copyBtn.style.color = "";
-        }, 2000);
-      } catch (err) {
-        console.error('Failed to copy code: ', err);
-      }
-    }
-
-    submitBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      
-      if (!numberInput.value) {
-        showMessage('Please enter your WhatsApp number', 'error');
-        return;
-      }
-      
-      const cleanNumber = numberInput.value.replace(/[^0-9]/g, "");
-      
-      if (cleanNumber.length < 11) {
-        showMessage('Invalid number format', 'error');
-        return;
-      }
-      
-      // Format the number display
-      let formattedNumber = "+" + cleanNumber;
-      if (cleanNumber.length > 3) {
-        formattedNumber = "+" + cleanNumber.substring(0, 3) + " " + cleanNumber.substring(3);
-      }
-      if (cleanNumber.length > 8) {
-        formattedNumber = "+" + cleanNumber.substring(0, 3) + " " + cleanNumber.substring(3, 8) + " " + cleanNumber.substring(8);
-      }
-      
-      numberInput.type = "text";
-      numberInput.value = formattedNumber;
-      numberInput.style.color = "#333";
-      numberInput.style.fontWeight = "500";
-      
-      // Show waiting state
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-      waitingMessage.style.display = "block";
-      pairElement.style.display = "none";
-      
-      try {
-        // Simulate API call (replace with actual API call)
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        submitBtn.addEventListener('click', async () => {
+            const number = numberInput.value.trim();
+            
+            if (!number) {
+                showResult('Please enter your WhatsApp number', 'error');
+                return;
+            }
+            
+            if (number.length < 11) {
+                showResult('Invalid number format', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            spinner.style.display = 'inline-block';
+            
+            try {
+                const response = await fetch(`/code?number=${encodeURIComponent(number)}`);
+                const data = await response.json();
+                
+                if (data.code) {
+                    showResult(`Your pairing code is: <strong>${data.code}</strong>`, 'success');
+                } else {
+                    showResult(data.error || 'Failed to generate code', 'error');
+                }
+            } catch (error) {
+                console.error('Pairing error:', error);
+                showResult('Connection error. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                spinner.style.display = 'none';
+            }
+        });
         
-        // For demo purposes - generate a random 6-digit code
-        const demoCode = Math.floor(100000 + Math.random() * 900000);
+        copyBtn.addEventListener('click', async () => {
+            const code = resultText.textContent.match(/\d+/)?.[0];
+            if (code) {
+                try {
+                    await navigator.clipboard.writeText(code);
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> <span>Copied!</span>';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i class="far fa-copy"></i> <span>Copy Code</span>';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
+            }
+        });
         
-        // Display the code
-        codeValue.innerText = demoCode;
-        pairElement.style.display = "block";
-        waitingMessage.style.display = "none";
+        function showResult(message, type) {
+            resultText.innerHTML = message;
+            resultDiv.className = 'result ' + type;
+            resultDiv.style.display = 'block';
+        }
         
-        // Set up copy functionality
-        pairElement.onclick = copyCode;
-        
-        // Add animation
-        box.style.transform = "perspective(1000px) rotateY(10deg)";
-        setTimeout(() => {
-          box.style.transform = "perspective(1000px) rotateY(0deg)";
-        }, 300);
-        
-      } catch (error) {
-        showMessage('Pairing service unavailable', 'error');
-        console.error('Pairing error:', error);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Pair';
-      }
-    });
-
-    function showMessage(message, type) {
-      pairElement.style.display = "block";
-      codeValue.innerHTML = `<span style="color:${type === 'error' ? '#d32f2f' : '#2a5ea8'}">${message}</span>`;
-      pairElement.onclick = null;
-      
-      // Add error animation
-      box.style.transform = "translateX(10px)";
-      setTimeout(() => {
-        box.style.transform = "translateX(-10px)";
-      }, 100);
-      setTimeout(() => {
-        box.style.transform = "translateX(0)";
-      }, 200);
-    }
-
-    // Add input validation
-    numberInput.addEventListener('input', function() {
-      this.value = this.value.replace(/[^0-9+]/g, '');
-    });
-  </script>
+        // Format number input
+        numberInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+    </script>
 </body>
 </html>
