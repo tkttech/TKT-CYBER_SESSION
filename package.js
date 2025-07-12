@@ -1,21 +1,21 @@
 {
-  "name": "orman-xmd",
-  "version": "1.0.0",
-  "description": "ORMAN XMD WhatsApp Bot",
-  "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "description": "whatsapp pair code generator by King Orman and Terrizev",
+    "main": "./index.js",
+  "engines" : { 
+    "npm" : ">=9.7.2",
+    "node" : ">=20.0.0"
+    },
+    "scripts": {
+    "start": "node pair.js"
   },
   "dependencies": {
-    "@whiskeysockets/baileys": "^6.7.17",
-    "express": "^4.18.1",
-    "express-session": "^1.17.3",
-    "memorystore": "^1.6.7",
+    "@whiskeysockets/baileys":  "latest",
+    "qrcode": "^1.5.3",
+    "awesome-phonenumber": "^2.64.0",
     "pino": "^8.1.0",
-    "qrcode": "^1.5.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.20"
-  }
+    "phone" : "3.1.30",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.1",
+    "path": "^0.12.7"
+   }
 }
