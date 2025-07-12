@@ -1,13 +1,15 @@
 {
-    "description": "whatsapp pair code generator by King Orman and Terrizev",
-    "main": "./index.js",
+    "description": "Toxic-sessions",
+    "main": "./me.js",
   "engines" : { 
     "npm" : ">=9.7.2",
     "node" : ">=20.0.0"
     },
-    "scripts": {
-    "start": "node pair.js"
-  },
+ "scripts": {
+    "start": "pm2 start me.js --deep-monitoring --attach --name PAIR",
+    "stop": "pm2 stop PAIR",
+    "restart": "pm2 restart PAIR"
+    },
   "dependencies": {
     "@whiskeysockets/baileys":  "latest",
     "qrcode": "^1.5.3",
@@ -15,7 +17,7 @@
     "pino": "^8.1.0",
     "phone" : "3.1.30",
     "body-parser": "^1.20.1",
-    "express": "^4.18.2",
+    "express": "^4.18.1",
     "path": "^0.12.7"
    }
 }
